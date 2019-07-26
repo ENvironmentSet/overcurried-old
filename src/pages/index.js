@@ -1,61 +1,94 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from 'react';
+import styled from '@emotion/styled';
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import Bio from 'components/molecules/bio';
+import BaseLayout from 'templates/BaseLayout';
+import SEO from 'templates/SEO';
+import HyperLink from 'components/molecules/HyperLink';
+import Row from 'templates/Row';
+import { Text, SmallText, H3Text } from 'components/atoms/Text';
+import Accent from 'components/atoms/Accent';
 
-class BlogIndex extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+import { rhythm } from 'utils/typography';
+import useConstant from 'utils/useConstant';
+import useSiteMetadata from 'utils/useSiteMetadata';
+
+import { graphql } from 'gatsby';
+
+import curry from 'constants/curry';
+
+export default function Index({ data: { allMarkdownRemark: { edges } } }) {
+  const posts = edges.map(({ node: { fields, frontmatter } }) => ({ ...fields, ...frontmatter }));
+  const { title } = useSiteMetadata();
+  function PostPreview({ post }) {
+    function PostTitlePreview() {
+      const StyledTitle = useConstant(() => styled(H3Text)`
+        margin-bottom: ${rhythm(1/4)};
+      `);
+
+      return (
+        <HyperLink to={post.slug}>
+          <StyledTitle>
+            <Accent>
+              {post.title}
+            </Accent>
+          </StyledTitle>
+        </HyperLink>
+      );
+    }
+    function PostAdditionalInformationPreview() {
+      function PostDatePreview() {
+        return (
+          <SmallText>{post.date}</SmallText>
+        );
+      }
+      function PostCurriesPreview() {
+        const curries = parseInt(post.curries);
+
+        return (
+          <SmallText>{curry.repeat(curries)}</SmallText>
+        );
+      }
+
+      return (
+        <Row>
+          <PostDatePreview />
+          <PostCurriesPreview />
+        </Row>
+      );
+    }
+    function PostDescriptionPreview() {
+      return (
+        <Text>{post.description}</Text>
+      );
+    }
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </div>
-          )
-        })}
-      </Layout>
-    )
+      <>
+        <PostTitlePreview />
+        <PostAdditionalInformationPreview />
+        <PostDescriptionPreview />
+      </>
+    );
   }
-}
+  function PostPreviewList({ posts }) {
+    return posts.map(post => <PostPreview key={post.slug} post={post} />);
+  }
 
-export default BlogIndex
+  return (
+    <BaseLayout>
+      <SEO title={title} />
+      <Bio />
+      <PostPreviewList posts={posts} />
+    </BaseLayout>
+  );
+};
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          excerpt
           fields {
             slug
           }
@@ -63,9 +96,10 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            curries
           }
         }
       }
     }
   }
-`
+`;

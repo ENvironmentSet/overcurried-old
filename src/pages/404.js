@@ -1,32 +1,32 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React from 'react';
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import SEO from 'templates/SEO';
+import BaseLayout from 'templates/BaseLayout';
+import HyperLink from 'components/molecules/HyperLink';
+import { Text, H1Text } from 'components/atoms/Text';
+import Accent from 'components/atoms/Accent';
 
-class NotFoundPage extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-
+export default function NotFoundPage() {
+  function NotFoundMessage() {
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="404: Not Found" />
-        <h1>Not Found</h1>
-        <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-      </Layout>
-    )
+      <>
+        <H1Text>Not Found</H1Text>
+        <Text>
+          Oops, My router function has produced
+          {' '}
+          <Accent>
+            <HyperLink to='https://wiki.haskell.org/Bottom'>⊥</HyperLink>
+          </Accent>,
+          You should check your URI parameters.
+        </Text>
+      </>
+    );
   }
-}
 
-export default NotFoundPage
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`
+  return (
+    <BaseLayout>
+      <SEO title='404: Not Found' />
+      <NotFoundMessage />
+    </BaseLayout>
+  );
+};

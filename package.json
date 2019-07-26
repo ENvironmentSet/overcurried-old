@@ -1,16 +1,17 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "overcurried",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Personal Blog of ENvironmentSet",
+  "version": "0.0.1",
+  "author": "Jaewon Seo <herryseo1@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/ENvironmentSet/overcurried/issues"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.14",
+    "@emotion/styled": "^10.0.14",
     "gatsby": "^2.13.31",
     "gatsby-image": "^2.2.6",
-    "gatsby-plugin-feed": "^2.3.4",
     "gatsby-plugin-google-analytics": "^2.1.4",
     "gatsby-plugin-manifest": "^2.2.3",
     "gatsby-plugin-offline": "^2.2.4",
@@ -35,25 +36,19 @@
     "typography": "^0.16.19",
     "typography-theme-wordpress-2016": "^0.16.19"
   },
-  "devDependencies": {
-    "prettier": "^1.18.2"
-  },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/ENvironmentSet/overcurried#readme",
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
-  "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/ENvironmentSet/overcurried.git"
   },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "serve": "gatsby serve"
   }
 }
