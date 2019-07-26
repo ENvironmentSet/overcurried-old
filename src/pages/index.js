@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import Bio from 'components/molecules/bio';
+import Bio from 'components/molecules/Bio';
 import BaseLayout from 'templates/BaseLayout';
 import SEO from 'templates/SEO';
 import HyperLink from 'components/molecules/HyperLink';
