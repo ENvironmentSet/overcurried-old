@@ -8,6 +8,9 @@ export default function Markdown({ children }) {
       a {
         color: ${hyperLinkColor};
       }
+      p, span, small, h1, h2, h3, h4, h5, h6 {
+        color: ${textColor};
+      }
       strong {
         color: ${accentColor}
       }
