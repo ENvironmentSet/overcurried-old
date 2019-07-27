@@ -12,7 +12,6 @@ export default function useSiteMetadata() {
           social {
             github
             twitter
-            facebook
           }
         }
       }
