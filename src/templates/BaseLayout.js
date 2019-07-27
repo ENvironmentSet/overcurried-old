@@ -51,13 +51,12 @@ export default function BaseLayout({ children }) {
     );
   }
   function BaseFooter() {
-    const { social: { github, twitter, facebook } } = useSiteMetadata();
+    const { social: { github, twitter } } = useSiteMetadata();
 
     return (
       <Row>
         <HyperLink to={github}>Github</HyperLink>
         <HyperLink to={twitter}>Twitter</HyperLink>
-        <HyperLink to={facebook}>Facebook</HyperLink>
       </Row>
     );
   }
